@@ -1,5 +1,6 @@
 package com.example.mobdevcw1
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -38,6 +39,7 @@ class GameScreen : AppCompatActivity() {
     //Text view to display expressions
     lateinit var leftExpression: TextView;
     lateinit var rightExpression: TextView;
+    lateinit var answerDisplay: TextView;
 
     var gen: Random = Random()
 
@@ -79,6 +81,8 @@ class GameScreen : AppCompatActivity() {
 
         leftExpression = findViewById<TextView>(R.id.textView);
         rightExpression = findViewById<TextView>(R.id.textView3);
+        answerDisplay = findViewById<TextView>(R.id.textAnswer);
+
         var greaterThanButton = findViewById<Button>(R.id.greaterButton);
         var equalsToButton = findViewById<Button>(R.id.equalsButton);
         var lessThanButton = findViewById<Button>(R.id.lessButton);
@@ -89,8 +93,32 @@ class GameScreen : AppCompatActivity() {
         //Call function 'randomTermsExpression'
         randomTermsExpression();
 
+        greaterThanButton.setOnClickListener {
+            checkGreaterThan();
+            randomTermsExpression();
+        }
+
+
+        equalsToButton.setOnClickListener {
+            checkEqualsTo();
+            initialise();
+            randomTermsExpression();
+
+
+        }
+
+        lessThanButton.setOnClickListener {
+            checkLessThan();
+            initialise();
+            randomTermsExpression();
+
+
+        }
+
 
     }
+
+
 
     fun generateOnetermL() {
         leftExpression.setText(variable1L.toString());
@@ -175,6 +203,7 @@ class GameScreen : AppCompatActivity() {
         } else {
             generateFourTermsR();
         }
+        initialise();
     }
 
     fun calulate3terms(variable1: Int, variable2: Int, variable3: Int, operator1: String, operator2: String): Int {
@@ -269,6 +298,48 @@ class GameScreen : AppCompatActivity() {
         fourTermsExpressionL = "(" + "(" + variable1L.toString() + operatorL4Terms1 + variable2L.toString() + ")" + operatorL4Terms2 + variable3L + ")" + operatorL4Terms3 + variable4L;
         fourTermsExpressionB = "(" + "(" + variable1R.toString() + operatorR4Terms1 + variable2R.toString() + ")" + operatorR4Terms2 + variable3R + ")" + operatorR4Terms3 + variable4R;
 
+    }
+
+    fun checkGreaterThan() {
+        if(leftEval > rightEval){
+            correct ++;
+            answerDisplay.setText("CORRECT!");
+            answerDisplay.setTextColor(Color.GREEN);
+        }
+        else{
+            incorrect++;
+            answerDisplay.setText("INCORRECT!");
+            answerDisplay.setTextColor(Color.RED);
+
+        }
+    }
+
+    fun checkEqualsTo() {
+        if(leftEval == rightEval){
+            correct ++;
+            answerDisplay.setText("CORRECT!");
+            answerDisplay.setTextColor(Color.GREEN);
+        }
+        else{
+            incorrect++;
+            answerDisplay.setText("INCORRECT!");
+            answerDisplay.setTextColor(Color.RED);
+
+        }
+    }
+
+    fun checkLessThan() {
+        if(leftEval < rightEval){
+            correct ++;
+            answerDisplay.setText("CORRECT!");
+            answerDisplay.setTextColor(Color.GREEN);
+        }
+        else{
+            incorrect++;
+            answerDisplay.setText("INCORRECT!");
+            answerDisplay.setTextColor(Color.RED);
+
+        }
     }
 
 
