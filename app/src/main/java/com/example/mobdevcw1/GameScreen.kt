@@ -5,41 +5,40 @@ import android.os.Bundle
 import android.widget.TextView
 import java.util.*
 
+    //Initialise to prevent repeated numbers when user clicks back and then clicks new game again
     //Numbers of the left
-    var variable1A = (1..21).random();
-    var variable2A = (1..21).random();
-    var variable3A = (1..21).random();
-    var variable4A = (1..21).random();
+    var variable1L = 0;
+    var variable2L = 0;
+    var variable3L = 0;
+    var variable4L = 0;
 
     //Numbers of the right
-    var variable1B = (1..21).random();
-    var variable2B = (1..21).random();
-    var variable3B = (1..21).random();
-    var variable4B = (1..21).random();
+    var variable1R = 0;
+    var variable2R = 0;
+    var variable3R = 0;
+    var variable4R = 0;
 
-    var gen: Random = Random()
+    //Random arithmetic expression for two terms
+    var twoTermsExpressionL = " ";
+    var twoTermsExpressionR = " ";
+
+    //Random arithmetic expression for three terms
+    var threeTermsExpressionL = " ";
+    var threeTermsExpressionR = " ";
+
+    //Random arithmetic expression for four terms
+    var fourTermsExpressionB = " ";
+    var fourTermsExpressionL = " ";
 
     //Random Operator
     var operators = mutableListOf<String>("+", "-", "*", "/");
     var rdmOperator = operators.size;
 
-    //Random arithmetic expression for two terms
-    var twoTermsExpressionA = variable1A.toString() + operators[gen.nextInt(rdmOperator)] + variable2A.toString();
-    var twoTermsExpressionB = variable1B.toString() + operators[gen.nextInt(rdmOperator)] + variable2B.toString();
-
-    //Random arithmetic expression for three terms
-    var threeTermsExpressionA = "(" + variable1A.toString() + operators[gen.nextInt(rdmOperator)] + variable2A.toString() + ")" + operators[gen.nextInt(rdmOperator)] + variable3A;
-    var threeTermsExpressionB = "(" + variable1B.toString() + operators[gen.nextInt(rdmOperator)] + variable2B.toString() + ")" + operators[gen.nextInt(rdmOperator)] + variable3B;
-
-    //Random arithmetic expression for four terms
-    var fourTermsExpressionA = "("+"(" + variable1A.toString() + operators[gen.nextInt(rdmOperator)] + variable2A.toString() + ")" + operators[gen.nextInt(rdmOperator)] + variable3A + ")" + operators[gen.nextInt(rdmOperator)] + variable4A;
-    var fourTermsExpressionB = "("+"(" + variable1B.toString() + operators[gen.nextInt(rdmOperator)] + variable2B.toString() + ")" + operators[gen.nextInt(rdmOperator)] + variable3B + ")" + operators[gen.nextInt(rdmOperator)] + variable4B;
-
     //Text view to display expressions
     lateinit var leftExpression : TextView;
     lateinit var rightExpression : TextView;
 
-    //
+    var gen: Random = Random()
 
 
 class GameScreen : AppCompatActivity() {
@@ -51,48 +50,112 @@ class GameScreen : AppCompatActivity() {
         rightExpression = findViewById<TextView>(R.id.textView3);
 
 
+        //Numbers of the left
+        variable1L = (1..21).random();
+        variable2L = (1..21).random();
+        variable3L = (1..21).random();
+        variable4L = (1..21).random();
 
-        generateFourTermsA();
-        generateFourTermsB();
-    }
+        //Numbers of the right
+        variable1R = (1..21).random();
+        variable2R = (1..21).random();
+        variable3R = (1..21).random();
+        variable4R = (1..21).random();
 
-    fun generateOnetermA(){
-        leftExpression.setText(variable1A.toString());
 
-    }
 
-    fun generateTwoTermsA(){
-        leftExpression.setText(twoTermsExpressionA);
 
-    }
+        //Random arithmetic expression for two terms
+        twoTermsExpressionL = variable1L.toString() + operators[gen.nextInt(rdmOperator)] + variable2L.toString();
+        twoTermsExpressionR = variable1R.toString() + operators[gen.nextInt(rdmOperator)] + variable2R.toString();
 
-    fun generateThreeTermsA(){
-        leftExpression.setText(threeTermsExpressionA);
+        //Random arithmetic expression for three terms
+        threeTermsExpressionL = "(" + variable1L.toString() + operators[gen.nextInt(rdmOperator)] + variable2L.toString() + ")" + operators[gen.nextInt(rdmOperator)] + variable3L;
+        threeTermsExpressionR = "(" + variable1R.toString() + operators[gen.nextInt(rdmOperator)] + variable2R.toString() + ")" + operators[gen.nextInt(rdmOperator)] + variable3R;
 
-    }
+        //Random arithmetic expression for four terms
+        fourTermsExpressionL = "("+"(" + variable1L.toString() + operators[gen.nextInt(rdmOperator)] + variable2L.toString() + ")" + operators[gen.nextInt(rdmOperator)] + variable3L + ")" + operators[gen.nextInt(rdmOperator)] + variable4L;
+        fourTermsExpressionB = "("+"(" + variable1R.toString() + operators[gen.nextInt(rdmOperator)] + variable2R.toString() + ")" + operators[gen.nextInt(rdmOperator)] + variable3R + ")" + operators[gen.nextInt(rdmOperator)] + variable4R;
 
-    fun generateFourTermsA(){
-        leftExpression.setText(fourTermsExpressionA);
-
-    }
-
-    fun generateOnetermB(){
-        rightExpression.setText(variable1B.toString());
-
-    }
-
-    fun generateTwoTermsB(){
-        rightExpression.setText(twoTermsExpressionB);
+        //Call function 'randomTermsExpression'
+        randomTermsExpression();
 
     }
 
-    fun generateThreeTermsB(){
-        rightExpression.setText(threeTermsExpressionB);
+    fun generateOnetermL(){
+        leftExpression.setText(variable1L.toString());
 
     }
 
-    fun generateFourTermsB(){
+    fun generateTwoTermsL(){
+        leftExpression.setText(twoTermsExpressionL);
+
+    }
+
+    fun generateThreeTermsL(){
+        leftExpression.setText(threeTermsExpressionL);
+
+    }
+
+    fun generateFourTermsL(){
+        leftExpression.setText(fourTermsExpressionL);
+
+    }
+
+    fun generateOnetermR(){
+        rightExpression.setText(variable1R.toString());
+
+    }
+
+    fun generateTwoTermsR(){
+        rightExpression.setText(twoTermsExpressionR);
+
+    }
+
+    fun generateThreeTermsR(){
+        rightExpression.setText(threeTermsExpressionR);
+
+    }
+
+    fun generateFourTermsR(){
         rightExpression.setText(fourTermsExpressionB);
+
+    }
+
+    fun randomTermsExpression(){
+        var rdmNumL = (1..4).random();
+        var rdmNumR = (1..4).random();
+
+        //Left side random term
+        if(rdmNumL == 1){
+            generateOnetermL();
+
+        }
+        else if (rdmNumL == 2){
+            generateTwoTermsL();
+            generateThreeTermsL();
+        }
+        else if (rdmNumL == 3){
+            generateThreeTermsL();
+        }
+        else{
+            generateFourTermsL();
+        }
+
+        //Right side random term
+        if(rdmNumR == 1){
+            generateOnetermR();
+
+        }
+        else if (rdmNumR == 2){
+            generateTwoTermsR();
+        }
+        else if (rdmNumR == 3){
+            generateThreeTermsR();
+        }
+        else{
+            generateFourTermsR();
+        }
 
     }
 
