@@ -37,12 +37,12 @@ class GameScreen : AppCompatActivity() {
 
 
     //Random arithmetic expression for four terms
-    var fourTermsExpressionB = " ";
+    var fourTermsExpressionR = " ";
     var fourTermsExpressionL = " ";
 
     var fourTermsExpression = " ";
 
-
+    var first2terms = 0.0;
 
     //Text view to display expressions
     lateinit var leftExpression: TextView;
@@ -57,9 +57,6 @@ class GameScreen : AppCompatActivity() {
         var incorrect: Int = 0
     }
 
-    //Answer to expression
-//    var leftEval: Int = 0;
-//    var rightEval: Int = 0;
 
     var leftEval: Double = 0.0;
     var rightEval: Double = 0.0;
@@ -162,20 +159,24 @@ class GameScreen : AppCompatActivity() {
             generateRandom();
             leftEval = calulate3terms(variable1L.toDouble(), variable2L.toDouble(), variable3L.toDouble(), operatorL3Terms1, operatorL3Terms2);
             println("integer left = " + leftEval);  //testing (delete this line)
-
         }
         threeTermsExpressionL = threeTermsExpression;
         leftExpression.setText(threeTermsExpressionL);
-
-
-
     }
 
     fun generateFourTermsL() {
-        leftExpression.setText(fourTermsExpressionL);
-        val first2terms = calulate3terms(variable1L.toDouble(), variable2L.toDouble(), variable3L.toDouble(), operatorL4Terms1, operatorL4Terms2)
+        first2terms = calulate3terms(variable1L.toDouble(), variable2L.toDouble(), variable3L.toDouble(), operatorL4Terms1, operatorL4Terms2)
         leftEval = calulate2terms(first2terms, variable4L.toDouble(), operatorL4Terms3)
+        fourTermsExpressionL = "(" + "(" + variable1L.toString() + operatorL4Terms1 + variable2L.toString() + ")" + operatorL4Terms2 + variable3L + ")" + operatorL4Terms3 + variable4L;
         println(leftEval);
+        while(leftEval % 1 != 0.0000){
+            generateRandom();
+            first2terms = calulate3terms(variable1L.toDouble(), variable2L.toDouble(), variable3L.toDouble(), operatorL4Terms1, operatorL4Terms2)
+            leftEval = calulate2terms(first2terms, variable4L.toDouble(), operatorL4Terms3)
+            println("integer left = " + leftEval);  //testing (delete this line)
+            fourTermsExpressionL = "(" + "(" + variable1L.toString() + operatorL4Terms1 + variable2L.toString() + ")" + operatorL4Terms2 + variable3L + ")" + operatorL4Terms3 + variable4L;
+        }
+        leftExpression.setText(fourTermsExpressionL);
 
     }
 
@@ -219,11 +220,18 @@ class GameScreen : AppCompatActivity() {
     }
 
     fun generateFourTermsR() {
-        rightExpression.setText(fourTermsExpressionB);
-        val first2terms = calulate3terms(variable1R.toDouble(), variable2R.toDouble(), variable3R.toDouble(), operatorR4Terms1, operatorR4Terms2)
+        first2terms = calulate3terms(variable1R.toDouble(), variable2R.toDouble(), variable3R.toDouble(), operatorR4Terms1, operatorR4Terms2)
         rightEval = calulate2terms(first2terms, variable4R.toDouble(), operatorR4Terms3);
+        fourTermsExpressionR = "(" + "(" + variable1R.toString() + operatorR4Terms1 + variable2R.toString() + ")" + operatorR4Terms2 + variable3R + ")" + operatorR4Terms3 + variable4R;
         println(rightEval);
-
+        while(rightEval % 1 != 0.0000){
+            generateRandom();
+            first2terms = calulate3terms(variable1R.toDouble(), variable2R.toDouble(), variable3R.toDouble(), operatorR4Terms1, operatorR4Terms2)
+            rightEval = calulate2terms(first2terms, variable4R.toDouble(), operatorR4Terms3);
+            println("integer right = " + leftEval);  //testing (delete this line)
+            fourTermsExpressionR = "(" + "(" + variable1R.toString() + operatorR4Terms1 + variable2R.toString() + ")" + operatorR4Terms2 + variable3R + ")" + operatorR4Terms3 + variable4R;
+        }
+        rightExpression.setText(fourTermsExpressionR);
     }
 
     fun randomTermsExpression() {
@@ -357,10 +365,10 @@ class GameScreen : AppCompatActivity() {
         variable4R = (1..20).random();
 
 
-        //Random arithmetic expression for four terms
-        fourTermsExpressionL = "(" + "(" + variable1L.toString() + operatorL4Terms1 + variable2L.toString() + ")" + operatorL4Terms2 + variable3L + ")" + operatorL4Terms3 + variable4L;
-        fourTermsExpressionB = "(" + "(" + variable1R.toString() + operatorR4Terms1 + variable2R.toString() + ")" + operatorR4Terms2 + variable3R + ")" + operatorR4Terms3 + variable4R;
-
+//        //Random arithmetic expression for four terms
+//        fourTermsExpressionL = "(" + "(" + variable1L.toString() + operatorL4Terms1 + variable2L.toString() + ")" + operatorL4Terms2 + variable3L + ")" + operatorL4Terms3 + variable4L;
+//        fourTermsExpressionR = "(" + "(" + variable1R.toString() + operatorR4Terms1 + variable2R.toString() + ")" + operatorR4Terms2 + variable3R + ")" + operatorR4Terms3 + variable4R;
+//
 
     }
 
