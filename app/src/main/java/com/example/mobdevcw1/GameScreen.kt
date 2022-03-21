@@ -66,8 +66,7 @@ class GameScreen : AppCompatActivity() {
 
 
     //Random Operator
-//    var operators = mutableListOf<String>("+", "-", "*", "/");  // chenge back to this
-    var operators = mutableListOf<String>("*", "/");  //test
+    var operators = mutableListOf<String>("+", "-", "*", "/");
 
     var rdmOperator = operators.size;
 
@@ -141,12 +140,12 @@ class GameScreen : AppCompatActivity() {
     }
 
     fun generateTwoTermsL() {
-        leftEval = calulate2terms(variable1L.toDouble(), variable2L, operatorL2Terms)
+        leftEval = calulate2terms(variable1L.toDouble(), variable2L.toDouble(), operatorL2Terms)
         twoTermsExpressionL = twoTermsExpression;
         println(leftEval)
         while(leftEval % 1 != 0.0){
             generateRandom();
-            leftEval = calulate2terms(variable1L.toDouble(), variable2L, operatorL2Terms)
+            leftEval = calulate2terms(variable1L.toDouble(), variable2L.toDouble(), operatorL2Terms)
             println("integer left = " + leftEval)
 
         }
@@ -156,16 +155,26 @@ class GameScreen : AppCompatActivity() {
     }
 
     fun generateThreeTermsL() {
-        leftExpression.setText(threeTermsExpressionL);
-        leftEval = calulate3terms(variable1L, variable2L, variable3L, operatorL3Terms1, operatorL3Terms2).toDouble();
+        leftEval = calulate3terms(variable1L.toDouble(), variable2L.toDouble(), variable3L.toDouble(), operatorL3Terms1, operatorL3Terms2);
+        threeTermsExpressionL = threeTermsExpression;
         println(leftEval);
+        while(leftEval % 1 != 0.0000){
+            generateRandom();
+            leftEval = calulate3terms(variable1L.toDouble(), variable2L.toDouble(), variable3L.toDouble(), operatorL3Terms1, operatorL3Terms2);
+            println("integer left = " + leftEval);  //testing (delete this line)
+
+        }
+        threeTermsExpressionL = threeTermsExpression;
+        leftExpression.setText(threeTermsExpressionL);
+
+
 
     }
 
     fun generateFourTermsL() {
         leftExpression.setText(fourTermsExpressionL);
-        val first2terms = calulate3terms(variable1L, variable2L, variable3L, operatorL4Terms1, operatorL4Terms2)
-        leftEval = calulate2terms(first2terms, variable4L, operatorL4Terms3)
+        val first2terms = calulate3terms(variable1L.toDouble(), variable2L.toDouble(), variable3L.toDouble(), operatorL4Terms1, operatorL4Terms2)
+        leftEval = calulate2terms(first2terms, variable4L.toDouble(), operatorL4Terms3)
         println(leftEval);
 
     }
@@ -178,12 +187,12 @@ class GameScreen : AppCompatActivity() {
     }
 
     fun generateTwoTermsR() {
-        rightEval = calulate2terms(variable1R.toDouble(), variable2R, operatorR2Terms)
+        rightEval = calulate2terms(variable1R.toDouble(), variable2R.toDouble(), operatorR2Terms)
         twoTermsExpressionR = twoTermsExpression;
         println(rightEval);
-        while(rightEval % 1 != 0.0){
+        while(rightEval % 1 != 0.0){  //if resulting value is not an integer
             generateRandom();
-            rightEval = calulate2terms(variable1R.toDouble(), variable2R, operatorR2Terms)
+            rightEval = calulate2terms(variable1R.toDouble(), variable2R.toDouble(), operatorR2Terms)
             println("integer right = " + rightEval);
 
         }
@@ -194,16 +203,25 @@ class GameScreen : AppCompatActivity() {
     }
 
     fun generateThreeTermsR() {
-        rightExpression.setText(threeTermsExpressionR);
-        rightEval = calulate3terms(variable1R, variable2R, variable3R, operatorR3Terms1, operatorR3Terms2)
+        rightEval = calulate3terms(variable1R.toDouble(), variable2R.toDouble(), variable3R.toDouble(), operatorR3Terms1, operatorR3Terms2)
+        threeTermsExpressionR = threeTermsExpression;
         println(rightEval);
+        while(rightEval % 1 != 0.0000){
+            generateRandom();
+            rightEval = calulate3terms(variable1R.toDouble(), variable2R.toDouble(), variable3R.toDouble(), operatorR3Terms1, operatorR3Terms2)
+            println("integer right = " + rightEval);  //testing (delete this line)
+
+        }
+        threeTermsExpressionR = threeTermsExpression;
+        rightExpression.setText(threeTermsExpressionR);
+
 
     }
 
     fun generateFourTermsR() {
         rightExpression.setText(fourTermsExpressionB);
-        val first2terms = calulate3terms(variable1R, variable2R, variable3R, operatorR4Terms1, operatorR4Terms2)
-        rightEval = calulate2terms(first2terms, variable4R, operatorR4Terms3).toDouble();
+        val first2terms = calulate3terms(variable1R.toDouble(), variable2R.toDouble(), variable3R.toDouble(), operatorR4Terms1, operatorR4Terms2)
+        rightEval = calulate2terms(first2terms, variable4R.toDouble(), operatorR4Terms3);
         println(rightEval);
 
     }
@@ -238,73 +256,89 @@ class GameScreen : AppCompatActivity() {
         generateRandom();
     }
 
-    fun calulate3terms(variable1: Int, variable2: Int, variable3: Int, operator1: String, operator2: String): Double {
+    fun calulate3terms(variable1: Double, variable2: Double, variable3: Double, operator1: String, operator2: String): Double {
         if (operator1.equals("+") && operator2.equals("+")){
-            return ((variable1 + variable2) + variable3).toDouble();
+            threeTermsExpression = "(" + variable1.toInt().toString() + operator1 + variable2.toInt().toString()+ ")" + operator2 + variable3.toInt().toString();  //String expression
+            return ((variable1 + variable2) + variable3);
         }
         else if (operator1.equals("-") && operator2.equals("+")){
-            return ((variable1 - variable2) + variable3).toDouble();
+            threeTermsExpression = "(" + variable1.toInt().toString() + operator1 + variable2.toInt().toString()+ ")" + operator2 + variable3.toInt().toString();
+            return ((variable1 - variable2) + variable3);
         }
         else if (operator1.equals("+") && operator2.equals("-")){
-            return ((variable1 + variable2) - variable3).toDouble();
+            threeTermsExpression = "(" + variable1.toInt().toString() + operator1 + variable2.toInt().toString()+ ")" + operator2 + variable3.toInt().toString();
+            return ((variable1 + variable2) - variable3);
         }
         else if (operator1.equals("-") && operator2.equals("-")){
-            return ((variable1 - variable2) - variable3).toDouble();
+            threeTermsExpression = "(" + variable1.toInt().toString() + operator1 + variable2.toInt().toString()+ ")" + operator2 + variable3.toInt().toString();
+            return ((variable1 - variable2) - variable3);
         }
         else if (operator1.equals("*") && operator2.equals("*")){
-            return ((variable1 * variable2) * variable3).toDouble();
+            threeTermsExpression = "(" + variable1.toInt().toString() + operator1 + variable2.toInt().toString()+ ")" + operator2 + variable3.toInt().toString();
+            return ((variable1 * variable2) * variable3);
         }
         else if (operator1.equals("*") && operator2.equals("+")){
-            return ((variable1 * variable2) + variable3).toDouble();
+            threeTermsExpression = "(" + variable1.toInt().toString() + operator1 + variable2.toInt().toString()+ ")" + operator2 + variable3.toInt().toString();
+            return ((variable1 * variable2) + variable3);
         }
         else if (operator1.equals("+") && operator2.equals("*")){
-            return ((variable1 + variable2) * variable3).toDouble();
+            threeTermsExpression = "(" + variable1.toInt().toString() + operator1 + variable2.toInt().toString()+ ")" + operator2 + variable3.toInt().toString();
+            return ((variable1 + variable2) * variable3);
         }
         else if (operator1.equals("*") && operator2.equals("-")){
-            return ((variable1 * variable2) - variable3).toDouble();
+            threeTermsExpression = "(" + variable1.toInt().toString() + operator1 + variable2.toInt().toString()+ ")" + operator2 + variable3.toInt().toString();
+            return ((variable1 * variable2) - variable3);
         }
         else if (operator1.equals("-") && operator2.equals("*")){
-            return ((variable1 - variable2) * variable3).toDouble();
+            threeTermsExpression = "(" + variable1.toInt().toString() + operator1 + variable2.toInt().toString()+ ")" + operator2 + variable3.toInt().toString();
+            return ((variable1 - variable2) * variable3);
         }
         else if (operator1.equals("/") && operator2.equals("/")){
-            return ((variable1 / variable2) / variable3).toDouble();
+            threeTermsExpression = "(" + variable1.toInt().toString() + operator1 + variable2.toInt().toString()+ ")" + operator2 + variable3.toInt().toString();
+            return ((variable1 / variable2) / variable3);
         }
         else if (operator1.equals("/") && operator2.equals("+")){
-            return ((variable1 / variable2) + variable3).toDouble();
+            threeTermsExpression = "(" + variable1.toInt().toString() + operator1 + variable2.toInt().toString()+ ")" + operator2 + variable3.toInt().toString();
+            return ((variable1 / variable2) + variable3)
         }
         else if (operator1.equals("+") && operator2.equals("/")){
-            return ((variable1 + variable2) / variable3).toDouble();
+            threeTermsExpression = "(" + variable1.toInt().toString() + operator1 + variable2.toInt().toString()+ ")" + operator2 + variable3.toInt().toString();
+            return ((variable1 + variable2) / variable3);
         }
         else if (operator1.equals("/") && operator2.equals("-")){
-            return ((variable1 / variable2) - variable3).toDouble();
+            threeTermsExpression = "(" + variable1.toInt().toString() + operator1 + variable2.toInt().toString()+ ")" + operator2 + variable3.toInt().toString();
+            return ((variable1 / variable2) - variable3);
         }
         else if (operator1.equals("-") && operator2.equals("/")){
-            return ((variable1 - variable2) / variable3).toDouble();
+            threeTermsExpression = "(" + variable1.toInt().toString() + operator1 + variable2.toInt().toString()+ ")" + operator2 + variable3.toInt().toString();
+            return ((variable1 - variable2) / variable3);
         }
         else if (operator1.equals("/") && operator2.equals("*")){
-            return ((variable1 + variable2) - variable3).toDouble();
+            threeTermsExpression = "(" + variable1.toInt().toString() + operator1 + variable2.toInt().toString()+ ")" + operator2 + variable3.toInt().toString();
+            return ((variable1 / variable2) * variable3);
         }
         else{
-            return ((variable1 * variable2) / variable3).toDouble();
+            threeTermsExpression = "(" + variable1.toInt().toString() + operator1 + variable2.toInt().toString()+ ")" + operator2 + variable3.toInt().toString();
+            return ((variable1 * variable2) / variable3);
         }
 
     }
 
-    fun calulate2terms(variable1: Double, variable2: Int,operator1: String): Double{
+    fun calulate2terms(variable1: Double, variable2: Double,operator1: String): Double{
         if (operator1.equals("+")){
-            twoTermsExpression = variable1.toInt().toString() + operator1 + variable2.toString();
+            twoTermsExpression = variable1.toInt().toString() + operator1 + variable2.toInt().toString();
             return (variable1 + variable2);
         }
         else if (operator1.equals("-")){
-            twoTermsExpression = variable1.toInt().toString() + operator1 +  variable2.toString();
+            twoTermsExpression = variable1.toInt().toString() + operator1 +  variable2.toInt().toString();
             return (variable1 - variable2);
         }
         else if (operator1.equals("*")){
-            twoTermsExpression = variable1.toInt().toString() + operator1 +  variable2.toString();
+            twoTermsExpression = variable1.toInt().toString() + operator1 +  variable2.toInt().toString();
             return (variable1 * variable2);
         }
         else{
-            twoTermsExpression = variable1.toInt().toString() + operator1 +  variable2.toString();
+            twoTermsExpression = variable1.toInt().toString() + operator1 +  variable2.toInt().toString();
             return (variable1 / variable2);
         }
     }
@@ -322,15 +356,6 @@ class GameScreen : AppCompatActivity() {
         variable3R = (1..20).random();
         variable4R = (1..20).random();
 
-        //Random arithmetic expression for two terms
-//        twoTermsExpressionL = variable1L.toString() + operatorL2Terms + variable2L.toString();
-//        twoTermsExpressionR = variable1R.toString() + operatorR2Terms + variable2R.toString();
-
-
-
-        //Random arithmetic expression for three terms
-        threeTermsExpressionL = "(" + variable1L.toString() + operatorL3Terms1 + variable2L.toString() + ")" + operatorL3Terms2 + variable3L;
-        threeTermsExpressionR = "(" + variable1R.toString() + operatorR3Terms1 + variable2R.toString() + ")" + operatorR3Terms2 + variable3R;
 
         //Random arithmetic expression for four terms
         fourTermsExpressionL = "(" + "(" + variable1L.toString() + operatorL4Terms1 + variable2L.toString() + ")" + operatorL4Terms2 + variable3L + ")" + operatorL4Terms3 + variable4L;
