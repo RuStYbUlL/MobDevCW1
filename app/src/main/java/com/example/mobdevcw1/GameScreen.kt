@@ -64,7 +64,6 @@ class GameScreen : AppCompatActivity() {
 
     //Random Operator
     var operators = mutableListOf<String>("+", "-", "*", "/");
-
     var rdmOperator = operators.size;
 
     //Random operator for each expression on each side
@@ -96,7 +95,7 @@ class GameScreen : AppCompatActivity() {
         var equalsToButton = findViewById<Button>(R.id.equalsButton);
         var lessThanButton = findViewById<Button>(R.id.lessButton);
 
-        //Initialise
+        //generate random numbers
         generateRandom();
 
         //Call function 'randomTermsExpression'
@@ -113,22 +112,16 @@ class GameScreen : AppCompatActivity() {
             checkEqualsTo();
             generateRandom();
             randomTermsExpression();
-
-
         }
 
         lessThanButton.setOnClickListener {
             checkLessThan();
             generateRandom();
             randomTermsExpression();
-
-
         }
 
 
     }
-
-
 
     fun generateOnetermL() {
         leftExpression.setText(variable1L.toString());
@@ -140,7 +133,7 @@ class GameScreen : AppCompatActivity() {
         leftEval = calulate2terms(variable1L.toDouble(), variable2L.toDouble(), operatorL2Terms)
         twoTermsExpressionL = twoTermsExpression;
         println(leftEval)
-        while(leftEval % 1 != 0.0){
+        while(!(leftEval <= 100) ||(leftEval % 1 != 0.0)) {
             generateRandom();
             leftEval = calulate2terms(variable1L.toDouble(), variable2L.toDouble(), operatorL2Terms)
             println("integer left = " + leftEval)
@@ -155,7 +148,7 @@ class GameScreen : AppCompatActivity() {
         leftEval = calulate3terms(variable1L.toDouble(), variable2L.toDouble(), variable3L.toDouble(), operatorL3Terms1, operatorL3Terms2);
         threeTermsExpressionL = threeTermsExpression;
         println(leftEval);
-        while(leftEval % 1 != 0.0000){
+        while(!(leftEval <= 100) || (leftEval % 1 != 0.0000)){
             generateRandom();
             leftEval = calulate3terms(variable1L.toDouble(), variable2L.toDouble(), variable3L.toDouble(), operatorL3Terms1, operatorL3Terms2);
             println("integer left = " + leftEval);  //testing (delete this line)
@@ -169,7 +162,7 @@ class GameScreen : AppCompatActivity() {
         leftEval = calulate2terms(first2terms, variable4L.toDouble(), operatorL4Terms3)
         fourTermsExpressionL = "(" + "(" + variable1L.toString() + operatorL4Terms1 + variable2L.toString() + ")" + operatorL4Terms2 + variable3L + ")" + operatorL4Terms3 + variable4L;
         println(leftEval);
-        while(leftEval % 1 != 0.0000){
+        while(!(leftEval <= 100) || (leftEval % 1 != 0.0000)){
             generateRandom();
             first2terms = calulate3terms(variable1L.toDouble(), variable2L.toDouble(), variable3L.toDouble(), operatorL4Terms1, operatorL4Terms2)
             leftEval = calulate2terms(first2terms, variable4L.toDouble(), operatorL4Terms3)
@@ -207,7 +200,7 @@ class GameScreen : AppCompatActivity() {
         rightEval = calulate3terms(variable1R.toDouble(), variable2R.toDouble(), variable3R.toDouble(), operatorR3Terms1, operatorR3Terms2)
         threeTermsExpressionR = threeTermsExpression;
         println(rightEval);
-        while(rightEval % 1 != 0.0000){
+        while(!(rightEval <= 100) || (rightEval % 1 != 0.0000)){
             generateRandom();
             rightEval = calulate3terms(variable1R.toDouble(), variable2R.toDouble(), variable3R.toDouble(), operatorR3Terms1, operatorR3Terms2)
             println("integer right = " + rightEval);  //testing (delete this line)
@@ -224,7 +217,7 @@ class GameScreen : AppCompatActivity() {
         rightEval = calulate2terms(first2terms, variable4R.toDouble(), operatorR4Terms3);
         fourTermsExpressionR = "(" + "(" + variable1R.toString() + operatorR4Terms1 + variable2R.toString() + ")" + operatorR4Terms2 + variable3R + ")" + operatorR4Terms3 + variable4R;
         println(rightEval);
-        while(rightEval % 1 != 0.0000){
+        while(!(rightEval <= 100) || (rightEval % 1 != 0.0000)){
             generateRandom();
             first2terms = calulate3terms(variable1R.toDouble(), variable2R.toDouble(), variable3R.toDouble(), operatorR4Terms1, operatorR4Terms2)
             rightEval = calulate2terms(first2terms, variable4R.toDouble(), operatorR4Terms3);
@@ -353,10 +346,10 @@ class GameScreen : AppCompatActivity() {
 
     fun generateRandom(){
         //Numbers of the left
-        variable1L = (1..20).random();
-        variable2L = (1..20).random();
-        variable3L = (1..20).random();
-        variable4L = (1..20).random();
+        variable1L = (1..100).random();
+        variable2L = (1..100).random();
+        variable3L = (1..100).random();
+        variable4L = (1..100).random();
 
         //Numbers of the right
         variable1R = (1..20).random();
