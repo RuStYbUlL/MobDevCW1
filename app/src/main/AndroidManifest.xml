@@ -11,13 +11,16 @@
         android:theme="@style/Theme.MobDevCW1">
         <activity
             android:name=".Results"
-            android:exported="false" />
+            android:exported="false"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".GameScreen"
-            android:exported="false" />
+            android:exported="false"
+            android:configChanges="orientation|screenSize"/> <!-- doesnt restart activity when chaged to landscape-->
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,3 +30,8 @@
     </application>
 
 </manifest>
+
+<!--
+References
+. Orientation change without restarting activity - https://stackoverflow.com/questions/4568558/how-to-avoid-restarting-activity-when-orientation-changes-on-android
+-->

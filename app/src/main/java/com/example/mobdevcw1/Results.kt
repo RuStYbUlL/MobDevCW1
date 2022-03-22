@@ -17,7 +17,6 @@ class Results : AppCompatActivity() {
     override fun onBackPressed() {
         var backToMenueIntent = Intent(this, MainActivity::class.java);
         startActivity(backToMenueIntent);
-        //super.onBackPressed()
     }
 
 }
