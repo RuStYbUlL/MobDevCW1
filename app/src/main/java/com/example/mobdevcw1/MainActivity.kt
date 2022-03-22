@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.PopupWindow
 import android.widget.TextView
+import android.os.CountDownTimer
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,8 +31,7 @@ class MainActivity : AppCompatActivity() {
             //New game
             var newGameButton = findViewById<Button>(R.id.button)
             newGameButton.setOnClickListener(){
-                gameScreenActivity()
-
+                gameScreenActivity();
             }
         }
     }

@@ -1,8 +1,11 @@
 package com.example.mobdevcw1
 
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import java.util.*
@@ -54,13 +57,12 @@ class GameScreen : AppCompatActivity() {
     //Score
     companion object {
         var correct: Int = 0
-        var incorrect: Int = 0
+        var incorrect: Int = 0;
+//        lateinit var countTime: TextView
     }
-
 
     var leftEval: Double = 0.0;
     var rightEval: Double = 0.0;
-
 
     //Random Operator
     var operators = mutableListOf<String>("+", "-", "*", "/");
@@ -83,6 +85,12 @@ class GameScreen : AppCompatActivity() {
     var operatorR4Terms2 = operators[gen.nextInt(rdmOperator)];
     var operatorR4Terms3 = operators[gen.nextInt(rdmOperator)];
 
+    //Timer
+    lateinit var countDownTimer : CountDownTimer;
+    var timeLeftInMillieSeconds = 50000L;
+    var timerRunning : Boolean = false;
+    lateinit var countDownText : TextView;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_screen);
@@ -95,18 +103,19 @@ class GameScreen : AppCompatActivity() {
         var equalsToButton = findViewById<Button>(R.id.equalsButton);
         var lessThanButton = findViewById<Button>(R.id.lessButton);
 
+        //Set incorrect and correct to zero when new game starts
+        incorrect = 0;
+        correct = 0;
         //generate random numbers
         generateRandom();
 
         //Call function 'randomTermsExpression'
         randomTermsExpression();
 
-
         greaterThanButton.setOnClickListener {
             checkGreaterThan();
             randomTermsExpression();
         }
-
 
         equalsToButton.setOnClickListener {
             checkEqualsTo();
@@ -120,7 +129,39 @@ class GameScreen : AppCompatActivity() {
             randomTermsExpression();
         }
 
+        countDownText = findViewById<TextView>(R.id.timerView)
+        //Start timer
+        startTimer();
+    }
 
+    fun startTimer(){
+        object : CountDownTimer(timeLeftInMillieSeconds, 1000){
+            override fun onTick(p0: Long) {
+                timeLeftInMillieSeconds = p0;
+                updateTimer();
+            }
+
+            override fun onFinish() {
+                showResults();
+            }
+        }.start();
+    }
+
+    fun showResults(){
+        val resultsIntent = Intent(this, Results::class.java);
+        startActivity(resultsIntent);
+    }
+
+    fun updateTimer(){
+        var seconds : Int= (timeLeftInMillieSeconds/1000).toInt();
+        var timeLeftText = "00:";
+        if (seconds>=10){
+            timeLeftText += seconds;
+        }
+        else{
+            timeLeftText += "0" + seconds;
+        }
+        countDownText.setText(timeLeftText);
     }
 
     fun generateOnetermL() {
@@ -356,13 +397,6 @@ class GameScreen : AppCompatActivity() {
         variable2R = (1..20).random();
         variable3R = (1..20).random();
         variable4R = (1..20).random();
-
-
-//        //Random arithmetic expression for four terms
-//        fourTermsExpressionL = "(" + "(" + variable1L.toString() + operatorL4Terms1 + variable2L.toString() + ")" + operatorL4Terms2 + variable3L + ")" + operatorL4Terms3 + variable4L;
-//        fourTermsExpressionR = "(" + "(" + variable1R.toString() + operatorR4Terms1 + variable2R.toString() + ")" + operatorR4Terms2 + variable3R + ")" + operatorR4Terms3 + variable4R;
-//
-
     }
 
     fun checkGreaterThan() {
