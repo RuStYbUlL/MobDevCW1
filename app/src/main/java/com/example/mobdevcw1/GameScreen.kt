@@ -87,7 +87,7 @@ class GameScreen : AppCompatActivity() {
 
     //Timer
     lateinit var countDownTimer : CountDownTimer;
-    var timeLeftInMillieSeconds = 50000L;
+    var timeLeftInMillieSeconds = 20000L; //CHANGE TO 50000L
     var timerRunning : Boolean = false;
     lateinit var countDownText : TextView;
 

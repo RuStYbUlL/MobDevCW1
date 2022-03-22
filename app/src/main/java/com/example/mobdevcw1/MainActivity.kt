@@ -28,11 +28,11 @@ class MainActivity : AppCompatActivity() {
             }
             popupWindow.showAsDropDown(aboutButton)
 
-            //New game
-            var newGameButton = findViewById<Button>(R.id.button)
-            newGameButton.setOnClickListener(){
-                gameScreenActivity();
-            }
+        }
+        //New game
+        var newGameButton = findViewById<Button>(R.id.button)
+        newGameButton.setOnClickListener(){
+            gameScreenActivity();
         }
     }
     fun gameScreenActivity() {

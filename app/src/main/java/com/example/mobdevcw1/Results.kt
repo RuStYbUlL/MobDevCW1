@@ -14,10 +14,10 @@ class Results : AppCompatActivity() {
         result.setText("You got " + GameScreen.correct + " correct and " + GameScreen.incorrect + " incorrect");
     }
 
-//    override fun onBackPressed() {
-//        var backToMenueIntent = Intent(this, MainActivity::class.java);
-//
-//        //super.onBackPressed()
-//    }
+    override fun onBackPressed() {
+        var backToMenueIntent = Intent(this, MainActivity::class.java);
+        startActivity(backToMenueIntent);
+        //super.onBackPressed()
+    }
 
 }
